@@ -16,9 +16,12 @@ router.post('/', function(req, res, next) {
 
     //logga in med DOLD tvåFaktorLogin
     if (password == "bajs"){
-        res.render('form', {title:'du vann'});
+        //kod för att kolla uppgifter med db
+        //om login rätt sätt session
+        res.send('galet');
     }else {
-        res.render('form', {title: 'Schoolsoft'}, {desc: 'wrong username or password'});
+        //kommentera ut vid fel sökning
+        res.render('form', {title: 'Schoolsoft', msg: 'wrong username or password'});
     }
 });
 
