@@ -15,10 +15,16 @@ router.post('/', function(req, res, next) {
     const password = req.body.password;
 
     //logga in med DOLD tvåFaktorLogin
-    if (password == "bajs"){
-        //kod för att kolla uppgifter med db
-        //om login rätt sätt session
-        res.send('galet');
+    if (username == "bajs"){
+        if (password == "bajs"){
+            //kod för att kolla uppgifter med db
+            //om login rätt sätt session
+            
+            req.session.loggedin = true;
+            req.session.username = username;
+            
+            res.redirect('/topsecret');
+        }
     }else {
         //kommentera ut vid fel sökning
         res.render('form', {title: 'Schoolsoft', msg: 'wrong username or password'});

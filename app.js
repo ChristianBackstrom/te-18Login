@@ -27,6 +27,13 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: 'sessan',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {sameSite: true}
+}));
+
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 

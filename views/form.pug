@@ -4,7 +4,8 @@ block content
     h1= title
     p welcome to #{title}
 
-    form(action="login/", method="post")
+    
+    form(action="/login", method="post")
         div
             label(for="username") Username 
             input#username(type="text", name="username")
@@ -13,5 +14,8 @@ block content
             input#password(type="password", name="password")
         button(type="submit") Login
         if msg
-            p.red= msg
+            p= msg
+
+    if logout
+        button= logout
     
