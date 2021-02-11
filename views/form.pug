@@ -4,9 +4,6 @@ block content
     h1= title
     p welcome to #{title}
 
-    if msg
-        p= msg
-
     form(action="login/", method="post")
         div
             label(for="username") Username 
@@ -15,4 +12,6 @@ block content
             label(for="password") Password 
             input#password(type="password", name="password")
         button(type="submit") Login
+        if msg
+            p.red= msg
     
