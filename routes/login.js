@@ -39,18 +39,20 @@ router.post('/', async function(req, res, next) {
             const result = await query(sql, username);
 
             // Load hash from your password DB.
-            bcrypt.compare(password, result[0].password, function(err, result) {
-                if (result == true){
-                    req.session.loggedin = true;
-                    req.session.username = username;
-                    res.redirect('/topsecret');
-                } else {
-                    res.render('form', {
-                        msg: 'wrong username or password'
+            if(result.length > 0){
+
+                bcrypt.compare(password, result[0].password, function(err, result) {
+                    if (result == true){
+                        req.session.loggedin = true;
+                        req.session.username = username;
+                        res.redirect('/topsecret');
+                    } else {
+                        res.render('form', {
+                            msg: 'wrong username or password'
+                        });
                     }
-                    )
-                }
-            });
+                });
+            }
         } catch (e) {
             next(e);
             console.error(e);
