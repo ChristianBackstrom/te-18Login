@@ -1,9 +1,25 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcrypt');
+const { query } = require('../models/db')
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.render('form', {title: 'Schoolsoft'});
+});
+
+/* B-crypt */
+router.get('/kryptan/:pwd', function(req, res, next) {
+
+    const myPlaintextPassword = req.params.pwd;
+
+    bcrypt.hash(myPlaintextPassword, 1, function(err, hash) {
+        // Store hash in your password DB.
+        res.json({
+            pwd: hash
+        });
+    });
 });
 
 /* post login */
