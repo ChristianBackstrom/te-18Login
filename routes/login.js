@@ -40,14 +40,23 @@ router.post('/', async function(req, res, next) {
 
             // Load hash from your password DB.
             bcrypt.compare(password, result[0].password, function(err, result) {
-                res.json({
-                    result
-                });
+                if (result == true){
+                    req.session.loggedin = true;
+                    req.session.username = username;
+                    res.redirect('/topsecret');
+                } else {
+                    res.render('form', {
+                        msg: 'wrong username or password'
+                    }
+                    )
+                }
             });
         } catch (e) {
             next(e);
             console.error(e);
         }
+    } else {
+        res.redirect('form', {msg: 'not given username and password'});
     }
 
     //logga in med DOLD tvåFaktorLogin
