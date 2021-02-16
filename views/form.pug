@@ -31,7 +31,9 @@ block content
                       input#remember-me(name='remember-me' type='checkbox')
                   br
                   input.btn.btn-info.btn-md(type='submit' name='submit' value='login')
-                  if msg
-                    p= msg
                 #register-link.text-right
                   a.text-info(href='#') Register here
+    if errors
+      each error in errors
+        p= error.param
+        p= error.msg

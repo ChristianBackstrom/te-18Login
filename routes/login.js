@@ -34,7 +34,7 @@ router.post('/',
     // Finds the validation errors in this request and wraps them in an object with handy functions
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      res.render('form',{ errors: errors.array() });
     }
 
     console.log(req.body);
@@ -44,48 +44,29 @@ router.post('/',
     const username = req.body.username;
     const password = req.body.password;
 
-    if (username && password) {
-        try{
-            const sql = 'SELECT password FROM users WHERE name = ?';
-
-            const result = await query(sql, username);
-
-            // Load hash from your password DB.
-            if(result.length > 0){
-
-                bcrypt.compare(password, result[0].password, function(err, result) {
-                    if (result == true){
-                        req.session.loggedin = true;
-                        req.session.username = username;
-                        res.redirect('loggedin');
-                    } else {
-                        res.render('form', {
-                            msg: 'wrong username or password'
-                        });
-                    }
-                });
-            }
-        } catch (e) {
-            next(e);
-            console.error(e);
+    try{
+        const sql = 'SELECT password FROM users WHERE name = ?';
+        const result = await query(sql, username);
+        // Load hash from your password DB.
+        if(result.length > 0){
+            bcrypt.compare(password, result[0].password, function(err, result) {
+                if (result == true){
+                    req.session.loggedin = true;
+                    req.session.username = username;
+                    res.render('loggedin');
+                } else {
+                    res.render('form', {
+                        error: 'wrong username or password'
+                    });
+                }
+            });
+        } else {
+            res.redirect('form', {error: 'not given username and password'});
         }
-    } else {
-        res.redirect('form', {msg: 'not given username and password'});
+    } catch (e) {
+        next(e);
+        console.error(e);
     }
-
-    //logga in med DOLD tvåFaktorLogin
-    // if (password == "bajs"){
-    //     //kod för att kolla uppgifter med db
-    //     //om login rätt sätt session
-        
-    //     req.session.loggedin = true;
-    //     req.session.username = username;
-        
-    //     res.redirect('/topsecret');
-    // }else {
-    //     //kommentera ut vid fel sökning
-    //     res.render('form', {title: 'Schoolsoft', msg: 'wrong username or password'});
-    // }
 });
 
 module.exports = router;
