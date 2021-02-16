@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { query } = require('../models/db')
+const { query } = require('../models/db');
+const { body, validationResult } = require('express-validator');
+
+
 
 
 /* GET users listing. */
@@ -23,7 +26,16 @@ router.get('/kryptan/:pwd', function(req, res, next) {
 });
 
 /* post login */
-router.post('/', async function(req, res, next) {
+router.post('/', 
+    body('username').notEmpty().trim(), 
+    body('password').notEmpty(), 
+    async function(req, res, next) {
+
+    // Finds the validation errors in this request and wraps them in an object with handy functions
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
     console.log(req.body);
 
@@ -45,7 +57,7 @@ router.post('/', async function(req, res, next) {
                     if (result == true){
                         req.session.loggedin = true;
                         req.session.username = username;
-                        res.redirect('/topsecret');
+                        res.redirect('loggedin');
                     } else {
                         res.render('form', {
                             msg: 'wrong username or password'
