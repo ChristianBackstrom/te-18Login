@@ -6,6 +6,7 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "test": "mocha -r dotenv/config --timeout 10000 --exit",
     "bcrypt": "^5.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -19,5 +20,10 @@
     "node-sass-middleware": "0.11.0",
     "nodemon": "^2.0.7",
     "pug": "2.0.0-beta11"
+  },
+  "devDependencies": {
+    "chai": "^4.3.0",
+    "mocha": "^8.3.0",
+    "supertest": "^6.1.3"
   }
 }
