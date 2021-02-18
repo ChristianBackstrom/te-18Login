@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "test": "mocha -r dotenv/config --timeout 10000 --exit"
   },
   "dependencies": {
-    "test": "mocha -r dotenv/config --timeout 10000 --exit",
     "bcrypt": "^5.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
