@@ -53,15 +53,15 @@ router.post('/',
                 if (result == true){
                     req.session.loggedin = true;
                     req.session.username = username;
-                    res.render('loggedin');
+                    res.redirect('/home');
                 } else {
                     res.render('form', {
-                        error: 'wrong username or password'
+                        error: 'Username or password is invalid', msg: 'Username or password is invalid'
                     });
                 }
             });
         } else {
-            res.redirect('form', {error: 'not given username and password'});
+            res.render('form', {error: 'Username or password is invalid', msg: 'Username or password is invalid'});
         }
     } catch (e) {
         next(e);
