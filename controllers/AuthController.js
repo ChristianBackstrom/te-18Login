@@ -46,3 +46,10 @@ module.exports.store = async function(req, res, next) {
         console.error(e);
     }
 };
+
+module.exports.destroy = async function(res, req, next) {
+    //logga ut användaren
+    req.session.loggedin = false;
+    req.session.destory();
+    res.redirect('/');
+};
