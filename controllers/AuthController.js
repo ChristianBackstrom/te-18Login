@@ -47,9 +47,9 @@ module.exports.store = async function(req, res, next) {
     }
 };
 
-module.exports.destroy = async function(res, req, next) {
+module.exports.destroy = async function(req, res, next) {
     //logga ut användaren
     req.session.loggedin = false;
-    req.session.destory();
-    res.redirect('/');
+    req.session.destroy();
+    return res.redirect('/');
 };
