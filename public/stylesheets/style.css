@@ -5,4 +5,29 @@ body {
 a {
   color: #00B7FF; }
 
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+
+.bg-body {
+  background-color: #6C8077; }
+
+a {
+  color: #00B7FF; }
+
+.bg-lightG {
+  background-color: #8CFFCD; }
+
+.bg-DG {
+  background-color: #70CCA4; }
+
+.bg-d9 {
+  background-color: #D9FFEE; }
+
+.btn-primary {
+  background-color: #70CCA4 !important; }
+
+/*# sourceMappingURL=style.css.map */
+
+
 /*# sourceMappingURL=style.css.map */
