@@ -15,7 +15,7 @@ block content
           #login-column.col-md-6
             #login-box.col-md-12
               form#login-form.form(action='/login' method='post')
-                h3.text-center.text-info Login
+                h3.text-center.text-info Please sign in
                 .form-group
                   label.text-info(for='username') Username:
                   br
@@ -33,6 +33,8 @@ block content
                   input.btn.btn-info.btn-md(type='submit' name='submit' value='login')
                 #register-link.text-right
                   a.text-info(href='#') Register here
+                if msg
+                  p= msg
     if errors
       each error in errors
         p= error.param
