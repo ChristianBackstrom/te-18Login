@@ -39,8 +39,6 @@ router.post('/',
 
     console.log(req.body);
 
-
-
     const username = req.body.username;
     const password = req.body.password;
 
@@ -56,12 +54,13 @@ router.post('/',
                     res.redirect('/home');
                 } else {
                     res.render('form', {
-                        error: 'Username or password is invalid', msg: 'Username or password is invalid'
+                        error: 'Username or password is invalid',
+                        msg: ''
                     });
                 }
             });
         } else {
-            res.render('form', {error: 'Username or password is invalid', msg: 'Username or password is invalid'});
+            res.render('form', {error: 'Username or password is invalid', msg: ''});
         }
     } catch (e) {
         next(e);

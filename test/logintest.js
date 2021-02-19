@@ -45,7 +45,7 @@ describe('/login', () => {
     it('should fail to sign in user with a invalid request body', (done) => {
       request.post('/login')
         .type('form')
-        .send({username: 'a', password: 'a'})
+        .send({username: '', password: ''})
         .expect(200)
         .end((err, res) => {
           if (err) throw err;
