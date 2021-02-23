@@ -1,12 +1,6 @@
 extends layout
 
 block content
-    main
-        h1 welcome back
-    
-        form(action="/logout", method="post")
-            //vi låtsas vara en delete request :)
-            button(type="submit") Logout
-    
-        h2 change password
-    
+
+    form(action="/logout", method="post")
+        button(type="submit") Logout
