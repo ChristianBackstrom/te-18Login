@@ -22,11 +22,11 @@ module.exports.store = async function(req, res, next) {
     bcrypt.hash(password, 10, async function (err, hash) {
       if (err) throw err;
       try {
-        const sql = 'INSERT INTO users (name, email, password, created_at) VALUES (?, now(), now())';
+        const sql = 'INSERT INTO users (name, email, password, created_at) VALUES (?, now())';
         const result = await query(sql, [username, email, hash]);
 
         if (result.insertId > 0) {
-          res.render('login', {username: username});
+          res.render('form', {username: username});
         }
 
       } catch (e) {
