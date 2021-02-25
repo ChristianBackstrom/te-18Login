@@ -1,9 +1,24 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const { body, validationResult } = require('express-validator');
+const registercontroller = require('../controllers/RegisterController');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+/* GET login form */
+router.get('/', registercontroller.show);
+
+/* POST login */
+router.post('/',
+  body('username').notEmpty().trim().toLowerCase(),
+  body('email').notEmpty().isEmail().trim().toLowerCase(),
+  body('password').notEmpty(),
+  body('confirmPassword').custom((value, { req }) => {
+    if (value !== req.body.password) {
+      throw new Error('Password confirmation does not match password');
+    }
+    // Indicates the success of this synchronous custom validator
+    return true;
+  }),
+  registercontroller.store
+);
 
 module.exports = router;
