@@ -8,16 +8,16 @@ block content
     script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
     // ---- Include the above in your HEAD tag --------
   body
-    #register
-      h3.text-center.text-white.pt-5 Login form
+    #changePassword
+      h3.text-center.text-white.pt-5 change password
       .container
         #login-row.row.justify-content-center.align-items-center
           #login-column.col-md-6
             #login-box.col-md-12
-              form#login-form.form(action='/changepassword' method='post')
+              form#login-form.form(action='/change' method='post')
                 h3.text-center.text-info Please enter current and new password
                 .form-group
-                  label.text-info(for='password) current password:
+                  label.text-info(for='password') current password:
                   br
                   input#username.form-control(type='password' name='lastPassword')
                 .form-group

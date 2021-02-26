@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const { body, validationResult } = require('express-validator');
 const accountcontroller = require('../controllers/AccountController');
 
 router.get('/', function(req, res, next) {
@@ -10,8 +11,18 @@ router.get('/', function(req, res, next) {
   }
 });
 
-router.post('/change-password', function(req, res, next){
-  accountcontroller.show;
-});
+router.get('/change', accountcontroller.show);
+
+router.post('/change',
+    body('lastPassword').notEmpty(),
+    body('newPassword').notEmpty(),
+    body('confirmPassword').custom((value, { req }) => {
+      if (value !== req.body.newPassword) {
+        throw new Error('Password confirmation does not match password');
+      }
+      // Indicates the success of this synchronous custom validator
+      return true;
+    }),
+     accountcontroller.update);
 
 module.exports = router;

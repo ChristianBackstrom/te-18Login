@@ -16,5 +16,5 @@ router.post('/',
       // Indicates the success of this synchronous custom validator
       return true;
     }),
-    accountcontroller.update
+    accountcontroller.store
 );
