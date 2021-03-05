@@ -8,13 +8,13 @@ block content
     script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
     // ---- Include the above in your HEAD tag --------
   body
-    #changePassword
-      h3.text-center.text-white.pt-5 change password
+    #deleteUser 
+      h3.text-center.text-white.pt-5 Delete User
       .container
         #login-row.row.justify-content-center.align-items-center
           #login-column.col-md-6
             #login-box.col-md-12
-              form#login-form.form(action='/home/change' method='post')
+              form#login-form.form(action='/home/delete' method='post')
                 h3.text-center.text-info Please enter current and new password
                 .form-group
                   label.text-info(for='password') current password:
@@ -33,5 +33,3 @@ block content
                 if errors
                   each error in errors
                     p= error.msg
-                if msg
-                  P= msg

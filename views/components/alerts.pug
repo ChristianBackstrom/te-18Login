@@ -1,0 +1,9 @@
+block alerts
+  if flash
+    if flash.length > 0
+        .toast(role='alert' aria-live='assertive' aria-atomic='true')
+          .toast-header
+            strong.me-auto Bootstrap
+            button.btn-close(type='button' data-bs-dismiss='toast' aria-label='Close')
+          .toast-body
+            p= flash

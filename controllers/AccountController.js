@@ -4,7 +4,7 @@ const { body, validationResult } = require('express-validator');
 
 module.exports.show = async function(req, res, next) {
     if (req.session.loggedin) {
-      return res.render('change');
+      return res.redirect('change');
     }
     return res.redirect('/login');
   };
@@ -38,13 +38,14 @@ module.exports.update = async function(req, res, next){
                 const sql2 = "UPDATE users SET password = ? WHERE password = ?";
                 result = await query(sql2, [hash, oldPassword]);
                 console.table(result);
-                
+
+                req.flash('success', 'succesfully changed your password')
                 return res.redirect('/home');
               });
             } else {
-              res.render('change', {
+              res.redirect('change', {
                 error: 'password is invalid',
-                msg: ''
+                msg: 'password is invalid'
               });
             }
           });
@@ -56,4 +57,12 @@ module.exports.update = async function(req, res, next){
         console.error(e);
       }
     }
+  };
+
+module.exports.showdelete = async function(req, res, next){
+  
+  };
+
+module.exports.delete = async function(req, res, next){
+
   };

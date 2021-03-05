@@ -5,7 +5,7 @@ const accountcontroller = require('../controllers/AccountController');
 
 router.get('/', function(req, res, next) {
   if(req.session.loggedin) {
-    res.render('home');
+    res.render('home', {flash: req.flash('success')});
   } else {
     res.redirect('/login');
   }
@@ -24,5 +24,9 @@ router.post('/change',
       return true;
     }),
      accountcontroller.update);
+
+// router.get('/delete', accountcontroller.showdelete);
+
+// router.post('/delete', accountcontroller.delete);
 
 module.exports = router;
