@@ -5,7 +5,10 @@ const { render } = require('../app');
 
 module.exports.show = async function(req, res, next) {
     //logiken för att visa login form
-        res.render('form', {title: 'Schoolsoft'});
+        if (req.session.loggedin !== true)
+            res.render('form', {title: 'Schoolsoft'});
+        else 
+            res.render('home');
 };
 
 module.exports.store = async function(req, res, next) {

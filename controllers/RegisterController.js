@@ -26,7 +26,7 @@ module.exports.store = async function(req, res, next) {
         const result = await query(sql, [username, email, hash]);
 
         if (result.insertId > 0) {
-          res.render('form', {username: username});
+          res.render('form');
         }
 
       } catch (e) {

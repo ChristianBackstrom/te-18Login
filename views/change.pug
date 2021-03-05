@@ -14,20 +14,20 @@ block content
         #login-row.row.justify-content-center.align-items-center
           #login-column.col-md-6
             #login-box.col-md-12
-              form#login-form.form(action='/change' method='post')
+              form#login-form.form(action='/home/change' method='post')
                 h3.text-center.text-info Please enter current and new password
                 .form-group
                   label.text-info(for='password') current password:
                   br
-                  input#username.form-control(type='password' name='lastPassword')
+                  input#lastPassword.form-control(type='password' name='lastPassword')
                 .form-group
                   label.text-info(for='password') Password:
                   br
-                  input#password.form-control(type='password' name='newPassword')
+                  input#newPassword.form-control(type='password' name='newPassword')
                 .form-group
                   label.text-info(for='confirmPassword') Confirm Password:
                   br
-                  input#password.form-control(type='password' name='confirmPassword')
+                  input#confirmPassword.form-control(type='password' name='confirmPassword')
                   br
                 input.btn.btn-info.btn-md(type='submit' name='submit' value='change password')
                 if errors

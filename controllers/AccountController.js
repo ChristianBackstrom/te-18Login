@@ -6,36 +6,41 @@ module.exports.show = async function(req, res, next) {
     if (req.session.loggedin) {
       return res.render('change');
     }
-    return res.render('form');
+    return res.redirect('/login');
   };
 
 module.exports.update = async function(req, res, next){
-    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log("error");
       console.log(errors.array());
       return res.status(400).render('change', { errors: errors.array() });
     }
-
-    if (req.session.loggedin === true){
+    console.log("sessionBefore")
+    if (req.session.loggedin){
+      console.log("session");
       
       const lastPassword = req.body.lastPassword;
       const newPassword = req.body.newPassword;
-      const DBPassword = "";
       
       try{
         const sql = 'SELECT password FROM users WHERE name = ?';
         const result = await query(sql, req.session.username);
+        const oldPassword = result[0].password;
         // Load hash from your password DB.
         if(result.length > 0){
+          console.table(result);
           bcrypt.compare(lastPassword, result[0].password, function(err, result) {
             if (result == true){
-              bcrypt.hash(newPassword, 10, function(err, hash) {
-                DBPassword = hash;
+              bcrypt.hash(newPassword, 10, async function(err, hash) {
+              
+
+                const sql2 = "UPDATE users SET password = ? WHERE password = ?";
+                result = await query(sql2, [hash, oldPassword]);
+                console.table(result);
+                
+                return res.redirect('/home');
               });
-              sql = "'UPDATE users SET password = ? WHERE `name` = ? AND `password` = ?";
-              result = query(sql, DBPassword, req.session.username, result[0].password);
-              console.log(sql + DBPassword + req.session.username, result[0].password);
             } else {
               res.render('change', {
                 error: 'password is invalid',
